@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    {% block cssfiles %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='contact/contact.css') }}">
+    {% endblock %}
+    <title>CONTACT</title>
+</head>
+
+<body>
+    <div id="main">
+        <div class="header">
+            <div>
+
+                <!-- <img src="3.jpg" class="image"> -->
+                <h2>Contact Us</h2>
+                <h4>Feel free to drop any message or feedback bellow !</h4>
+            </div>
+        </div>
+        <form class="mid">
+            <div class="content">
+                <div class="write">
+                    <label>Full Name :</label>
+                    <input class="int" type="text" >
+                </div>
+                <div class="write">
+                    <label>Email :</label>
+                    <input class="int" type="text">
+                </div>
+                <div class="write">
+                    <label>Phone :</label>
+                    <input class="int" type="text">
+                </div>
+                <div class="write">
+                    <label>Message :</label>
+                    <textarea class="int" type="text" placeholder="Your Comment.."></textarea>
+                </div>
+            </div>
+        </form>
+        <!-- <div class="sub"> -->
+        <!-- <div class="end">
+                <button class="clic" type="submit" placeholder="submit"></button>
+            </div> -->
+        <!-- </div> -->
+        <div class="end">
+            <button class="submit">
+                <input type="submit">
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>

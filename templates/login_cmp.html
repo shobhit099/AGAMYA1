@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block title %} 
+signup_emp
+{% endblock %}
+
+{% block cssfiles %}
+   <link rel="stylesheet" href="{{url_for('static',filename='login.css')}}">
+{% endblock %}
+
+{% block content %}
+
+<style>
+    
+</style>
+
+<section>
+    <form method="POST" action="#">
+        <div class="wrapper">
+            <div class="input-data">
+                <input type="text" name="email" required>
+                <div class="underline"></div>
+                <label>Email</label>
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <div class="input-data">
+                <input type="password" name="password" required>
+                <div class="underline"></div>
+                <label>Password</label>
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <div class="input-data">
+                <input type="submit" value="log In">
+            </div>
+            <a href="{{ url_for('signup_cmp')}}">click here to sign up</a>
+        </div>
+        
+    </form>
+</section>
+
+{% endblock %}
+
+<!-- ---------------------This is Scripts block--------------------- -->
+{% block scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+    const menuBtn = document.querySelector('.menu-btn');
+let menuOpen = true;
+menuBtn.classList.add('open');
+menuBtn.addEventListener('click', () => {
+    let lm=document.querySelector('#list-menu');
+  if(!menuOpen) {
+    menuBtn.classList.add('open');
+    menuOpen = true;
+    lm.style.left ="0px";
+  } else {
+    menuBtn.classList.remove('open');
+    lm.style.left ="-400px";
+    menuOpen = false;
+  }
+});
+window.onscroll=function(){
+    menuBtn.classList.remove('open');
+    let lm=document.querySelector('#list-menu');
+    lm.style.left ="-400px";
+    menuOpen = false;
+}
+// This is caption effect:--------
+
+// const carouselText = [
+//   {text: "Apple", color: "red"},
+//   {text: "Orange", color: "orange"},
+//   {text: "Lemon", color: "yellow"}
+// ]
+async function typeSentence(sentence, eleRef, delay = 100) {
+  const letters = sentence.split("");
+  let i = 0;
+  while(i < letters.length) {
+    await waitForMs(delay);
+    $(eleRef).append(letters[i]);
+    i++
+  }
+  return;
+}
+
+function waitForMs(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+async function deleteSentence(eleRef) {
+  const sentence = $(eleRef).html();
+  const letters = sentence.split("");
+  let i = 0;
+  while(letters.length > 0) {
+    await waitForMs(100);
+    letters.pop();
+    $(eleRef).html(letters.join(""));
+  }
+}
+async function carousel(sentence, eleRef) {
+    var i = 0;
+    while(true) {
+      //updateFontColor(eleRef, carouselList[i].color)
+      await typeSentence(sentence, eleRef);
+      await waitForMs(1500);
+      await deleteSentence(eleRef);
+      await waitForMs(500);
+      i++
+      if(i >= sentence.length) {i = 0;}
+    }
+}
+
+// function updateFontColor(eleRef, color) {
+//   $(eleRef).css('color', color);
+// }
+carousel("Ready to be the part of Ready2Hire",".caption");
+</script>
+{% endblock %}

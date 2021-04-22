@@ -1,0 +1,23 @@
+  .box{
+    display:flex;
+}
+img{
+    width:45%;}
+  h1{
+    text-align:center;
+    text-decoration:underline;
+    font-size:22px;
+    margin:10px;
+    font-family:comic sans ms;
+} 
+p{
+  font-size:22px;
+  text-align:center;
+  padding:20px;
+  margin:10px;
+}
+h2{
+  font-size:20px;
+  font-family:comic sans ms;
+}
+  

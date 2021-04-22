@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+{{ super() }}
+- About
+{% endblock %}
+
+{% block cssfiles %}
+   <link rel="stylesheet" href="{{url_for('static',filename='about.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h1>ABOUT</h1>
+<p>
+   <span style="font-weight:bold">Ready2Hire</span> is a platform with opportunities to 
+   grow and explore as a professional that connects job seeker to businesses that are looking 
+   to hire and allows job seekers to create and maintain CV, all in one website. 
+   <span style="font-weight:bold">Ready2Hire</span> 
+   strives to put job seekers first giving them free access to search for jobs,
+    post resumes and research companies.Here, we are not only offering our users to search for 
+    better job opportunities in their respective domian but also we are offering users to hire people for themselves on their firms.
+     <br/><br/><span style="font-weight:bold">Ready2Hire</span> is currently available in Hyderabad, Surat, Kolkata, Ranchi, Mumbai, Bengaluru and Delhi_NCR.
+</p>
+<div class="box">
+   <img src="/static/choose_emp.jpg">
+<p> For job seekers,joining the <span style="font-weight:bold">Ready2Hire</span> community gives you access to relevant job openings and interview opportunities,as well as learning content to help you prepare and grow your career.<br/><br/>For employers,we work with all kinds of businesses looking to hire talent, whether you are a large corporation or a small enterprise.If you are looking to hire people that suit your work needs, you can express interest in partnering with us here or for further details contact us. </p>
+</div>
+<h2 style="color:blue;text-align:center">Get qualified applicants</h2>
+<p><span style="font-weight:bold">Ready2Hire</span> helps you to reach lots of job seekers and show you the most qualified applicants for each role</p><br/><br/>
+<h2 style="color:blue;text-align:center">Hire easily at scale</h2>
+<p><span style="font-weight:bold">Ready2Hire</span> helps you to get the volume of applicants you need to hire efficiently</p><br/><br/>
+<h2 style="color:blue;text-align:center">Centralized applicant management</h2>
+<p>Manage the full recruitment process all in one place with <span style="font-weight:bold">Ready2Hire</span> Jobs Manager</p><br/><br/>
+</div>
+
+
+<section>
+   <footer class="footer">
+       <div class="decorate">
+           <div class="row">
+               <div class="footer-col">
+                   <h4>LOOKING FOR JOBS</h4>
+                   <ul>
+                       <li><a href="#">Jobs in Hyderabad</a></li>
+                       <li><a href="#">Jobs in Surat</a></li>
+                       <li><a href="#">Jobs in Kolkata</a></li>
+                       <li><a href="#">Jobs in Ranchi</a></li>
+ 
+                   </ul>
+               </div>
+               <div class="footer-col">
+                   <h4>START HIRING</h4>
+                   <ul>
+                       <li><a href="#">Hire in Hyderabad</a></li>
+                       <li><a href="#">Hire in Surat</a></li>
+                       <li><a href="#">Hire in Kolkata</a></li>
+                       <li><a href="#">Hire in Ranchi</a></li>
+                   </ul>
+               </div>
+               <div class="footer-col">
+                   <h4>TOP SKILLS</h4>
+                   <ul>
+                       <li><a href="#">Doctor</a></li>
+                       <li><a href="#">Teacher</a></li>
+                   </ul>
+               </div>
+               <div class="footer-col">
+                   <h4>Follow</h4>
+                   <div class="social-links">
+                       <a href="#"><i class="fab fa-facebook-f"></i></a>
+                       <a href="#"><i class="fab fa-twitter"></i></a>
+                       <a href="#"><i class="fab fa-instagram"></i></a>
+                       <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </footer>
+</section>
+{% endblock %}
+
+{% block scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+    const menuBtn = document.querySelector('.menu-btn');
+let menuOpen = true;
+menuBtn.classList.add('open');
+menuBtn.addEventListener('click', () => {
+    let lm=document.querySelector('#list-menu');
+  if(!menuOpen) {
+    menuBtn.classList.add('open');
+    menuOpen = true;
+    lm.style.left ="0px";
+  } else {
+    menuBtn.classList.remove('open');
+    lm.style.left ="-400px";
+    menuOpen = false;
+  }
+});
+window.onscroll=function(){
+    menuBtn.classList.remove('open');
+    let lm=document.querySelector('#list-menu');
+    lm.style.left ="-400px";
+    menuOpen = false;
+}
+// This is caption effect:--------
+
+// const carouselText = [
+//   {text: "Apple", color: "red"},
+//   {text: "Orange", color: "orange"},
+//   {text: "Lemon", color: "yellow"}
+// ]
+async function typeSentence(sentence, eleRef, delay = 100) {
+  const letters = sentence.split("");
+  let i = 0;
+  while(i < letters.length) {
+    await waitForMs(delay);
+    $(eleRef).append(letters[i]);
+    i++
+  }
+  return;
+}
+
+function waitForMs(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+async function deleteSentence(eleRef) {
+  const sentence = $(eleRef).html();
+  const letters = sentence.split("");
+  let i = 0;
+  while(letters.length > 0) {
+    await waitForMs(100);
+    letters.pop();
+    $(eleRef).html(letters.join(""));
+  }
+}
+async function carousel(sentence, eleRef) {
+    var i = 0;
+    while(true) {
+      //updateFontColor(eleRef, carouselList[i].color)
+      await typeSentence(sentence, eleRef);
+      await waitForMs(1500);
+      await deleteSentence(eleRef);
+      await waitForMs(500);
+      i++
+      if(i >= sentence.length) {i = 0;}
+    }
+}
+
+// function updateFontColor(eleRef, color) {
+//   $(eleRef).css('color', color);
+// }
+carousel("We Grow by Lifting others",".caption");
+</script>
+{% endblock %}
