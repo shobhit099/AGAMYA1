@@ -43,10 +43,15 @@ class cmp(UserMixin,db.Model):
     category = db.Column(db.String(250), nullable= False)
     established = db.Column(db.Integer, nullable=False)
     password = db.Column(db.String(100), nullable=False)
+    cover = db.Column(db.String(255), default='cover.jpg')
+    profile = db.Column(db.String(255), default='user.jpg')
 
 @login_manager.user_loader
 def load_user(user_id):
-    return emp.query.get(int(user_id))
+    if session['table_name'] == 'emp':
+        return emp.query.get(int(user_id))
+    if session['table_name'] == 'cmp':
+        return cmp.query.get(int(user_id))
 
 @app.route('/')
 def index():
@@ -90,6 +95,7 @@ def login_emp():
         user = emp.query.filter_by(email = email).first()
         if user:
             if password == user.password:
+                session['table_name'] = 'emp'
                 login_user(user)
                 return redirect(url_for('profile_emp',p = user.id))
     return render_template('login_emp.html')
@@ -122,7 +128,9 @@ def login_cmp():
         user = cmp.query.filter_by(email = email).first()
         if user:
             if password == user.password:
-                return 'success'
+                session['table_name'] = 'cmp'
+                login_user(user)
+                return redirect(url_for('profile_cmp',p = user.id))
     return render_template('login_cmp.html')
 
 @app.route('/profile_emp/<p>',methods=["POST","GET"])
@@ -143,6 +151,25 @@ def profile_emp(p):
             profile.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(profile.filename)))
             return render_template('profile_emp.html',emp = emp, image = emp.profile, cover = emp.cover )
     return render_template('profile_emp.html',emp = emp, image = emp.profile , cover = emp.cover)
+
+@app.route('/profile_cmp/<p>',methods=["POST","GET"])
+@login_required
+def profile_cmp(p):
+    cmp = load_user(p)
+    if request.method == 'POST':
+        if 'cover' in request.files:
+            cover = request.files['cover']       
+            cmp.cover = cover.filename
+            db.session.commit()
+            cover.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(cover.filename)))
+            return render_template('profile_cmp.html',cmp = cmp, image = cmp.profile, cover = cmp.cover )
+        if 'profile' in request.files:
+            profile = request.files['profile']       
+            cmp.profile = profile.filename
+            db.session.commit()
+            profile.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(profile.filename)))
+            return render_template('profile_cmp.html',cmp =cmp, image = cmp.profile, cover = cmp.cover )
+    return render_template('profile_cmp.html',cmp = cmp, image = cmp.profile , cover = cmp.cover)
 
 @app.route("/logout")
 @login_required
