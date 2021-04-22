@@ -9,14 +9,15 @@
 }
 section{
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   background: linear-gradient(-135deg, #c850c0, #4158d0);
 }
-form{
-    padding: 4cm;
-}
+/* form{
+    padding: 5cm;
+} */
 
 .wrapper{
     /* margin-left: 8cm; */
