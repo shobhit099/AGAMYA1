@@ -96,8 +96,8 @@
             </div>
         </div>
 
-        <div class="content">
-            <img src="{{ url_for('static', filename = 'photo/' + cover ) }}" style="width: 33cm; height: 9cm;" alt="image not found">
+        <div class="content" id="cover">
+            <img src="{{ url_for('static', filename = 'photo/' + cover ) }}" alt="image not found">
             <form action="#" method="POST" enctype="multipart/form-data">
                 <input type="file" name="cover" id="hide" onchange="this.form.submit()">
             </form>

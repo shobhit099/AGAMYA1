@@ -8,7 +8,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__ , static_folder = 'static')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir,'data.sqlite')
 app.secret_key = 'super secret key'
-app.config['UPLOAD_FOLDER'] = 'D:\\code\\practice\\job\\try\\AGAMYA\\static\\photo'
+app.config['UPLOAD_FOLDER'] = basedir+'\\static\\photo'
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
