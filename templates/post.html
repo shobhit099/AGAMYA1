@@ -1,0 +1,28 @@
+<div id="popup">
+    <form method="POST" action="#">
+        <div class="main">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Job Title</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="title" placeholder="Job Title">
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="exampleFormControlInput1" class="form-label">Requried Qualification</label>
+            <input type="text" class="form-control" placeholder="Requried Qualification" name="quali" aria-label="First name">
+            </div>
+            <div class="col">
+                <label for="exampleFormControlInput1" class="form-label">Requried Experience</label>
+            <input type="text" class="form-control" placeholder="Email" name="exp" aria-label="Last name">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Job Summary</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="summary" rows="5"></textarea>
+        </div>
+    </div>
+    <li class="list-group-item">
+        <button type="submit" class="btn btn-primary">POST</button>
+        <button type="button" class="btn btn-secondary" onclick="toggle()">Cancel</button>
+    </li>
+    </form>
+</div>
