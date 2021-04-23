@@ -217,7 +217,7 @@ def getdata(p):
         if p =="":
             return "No results"
         search = "{}%".format(p)
-        user = emp.query.filter(emp.name.like(search)).all()
+        user = emp.query.filter(emp.skill.like(search)).all()
         return passdata(user)
     return 'empty'
 

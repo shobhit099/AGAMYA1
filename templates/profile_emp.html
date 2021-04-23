@@ -15,11 +15,28 @@
     <title>Profile</title>
 </head>
 <style>
-    .user{
-    width: 100%;
-    height: 50px;
-    background-color: #f1f1f1;
-    margin:3px;
+    .search-result{
+        width: 100%;
+        overflow: scroll;
+        padding: 5px;
+    }
+    .about-section-for-search{
+        display: flex;
+        height: auto;
+        /* height: auto; */
+        border: 2px solid #e8dede;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .search-list{
+        width: 60%;
+    }
+    .dp-search-list{
+        position: static;
+        height: 4.4CM;
+        width: 5CM;
+        margin: 5px;
+        background-color: #beb9b9;
     }
 </style>
 <body>
@@ -66,7 +83,7 @@
                         <span class="close">&times;</span>
                         <input type="text" name="type" id="ttr" placeholder="Type to search">
                         <div class="search-result">
-                            <div class="user"></div>
+                            
                         </div>
                     </div>
                     
@@ -256,15 +273,101 @@ function getdata(key){
         success: function(result) {
             if(result.output.length >0 || result.output!="Not found"){
                 var output=result.output.map((x)=>
-                `<h1>${x.name}</h1>`).join("");
+                `<div class="about-section-for-search">
+                    <div class="dp-search-list">
+                        <img src="/static/photo/${x.profile}" style="width: 5cm; height: 4.4cm;" alt="image not found">
+                    </div>
+                        <ul class="search-list">
+                            <li>
+                                <div class="box">
+                                    <div class="item">
+                                        Name
+                                    </div>
+                                    <div class="item-detail">
+                                        ${x.name}
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="box">
+                                    <div class="item">
+                                        Professtion
+                                    </div>
+                                    <div class="item-detail">
+                                        ${x.skill}
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="box">
+                                    <div class="item">
+                                        Gender
+                                    </div>
+                                    <div class="item-detail">
+                                        ${x.gender}
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="box">
+                                    <div class="item">
+                                        Address
+                                    </div>
+                                    <div class="item-detail">
+                                        ${x.address}
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="box">
+                                    <div class="item">
+                                        City
+                                    </div>
+                                    <div class="item-detail">
+                                        ${x.city}
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="box">
+                                    <div class="item">
+                                        State
+                                    </div>
+                                    <div class="item-detail">
+                                        ${x.state}
+                                    </div>
+                                    </div>
+                                </li>
+                                <li><div class="box">
+                                    <div class="item">
+                                        Experience
+                                    </div>
+                                    <div class="item-detail">
+                                        ${x.exp}
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="box">
+                                    <div class="item">
+                                        Email
+                                    </div>
+                                    <div class="item-detail">
+                                        ${x.email}
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>`).join("");
             }else{
                 return;
             }
             document.querySelector(".search-result").innerHTML="";
             $(".search-result").prepend(output);
-            console.log(output);    
+            //console.log(output);    
         },
         error: function(result) {
+            document.querySelector(".search-result").innerHTML="";
             $(".search-result").append("<h1>"+"No Result"+"</h1>");
         }
         });
