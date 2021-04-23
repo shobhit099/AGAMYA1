@@ -6,10 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous"> -->
-    <!-- <link rel="stylesheet" href="boot.css"> -->
-    <!-- <link rel="stylesheet" href="profile_emp.css"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
@@ -17,7 +14,14 @@
     <link rel="stylesheet" href="{{url_for('static',filename='profile_emp.css')}}">
     <title>Profile</title>
 </head>
-
+<style>
+    .user{
+    width: 100%;
+    height: 50px;
+    background-color: #f1f1f1;
+    margin:3px;
+    }
+</style>
 <body>
     <!-- For Slide fixed navbar -->
     <div class="full-container">
@@ -60,8 +64,10 @@
                     <!-- Modal content -->
                     <div class="modal-content">
                         <span class="close">&times;</span>
-                        <input type="text" name="type" id="search-modal" placeholder="Type to search">
-                        <div class="search-result"></div>
+                        <input type="text" name="type" id="ttr" placeholder="Type to search">
+                        <div class="search-result">
+                            <div class="user"></div>
+                        </div>
                     </div>
                     
                 </div>
@@ -236,38 +242,41 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
 <script>
-    $(document).ready(function() {
-  $("#search_btn").click(function(e) {
-    var t= document.getElementById("search").value;
-    var yyy="http://localhost:5000/getdata/";
-    yyy=yyy+t;
-    console.log(yyy);
-    e.preventDefault();
-    $.ajax({
-      type: "POST",
-      url: yyy,
-      data: {
-        id: $("search_btn").val(),
-        access_token: $("#search_btn").val()
-      },
-      success: function(result) {
-        //alert(result.output);
-        // console.log(result.output);
-        //console.log(t.val);
-        for(let i=0;i<result.output.length;i++){
-            var str="<h3>"+"Name: "+result.output[i].name+"</h3>"+
-            "<h3>"+"Skill: "+result.output[i].skill+"</h3>"
-            $(".search-result").append(str);
-        }    
-      },
-      error: function(result) {
-        $(".search-result").append("<h1>"+"No Result"+"</h1>");
-      }
+function getdata(key){
+        var t= key;
+        var yyy="http://localhost:5000/getdata/";
+        yyy=yyy+t;
+        $.ajax({
+        type: "POST",
+        url: yyy,
+        data: {
+            id: $("search_btn").val(),
+            access_token: $("#search_btn").val()
+        },
+        success: function(result) {
+            if(result.output.length >0 || result.output!="Not found"){
+                var output=result.output.map((x)=>
+                `<h1>${x.name}</h1>`).join("");
+            }else{
+                return;
+            }
+            document.querySelector(".search-result").innerHTML="";
+            $(".search-result").prepend(output);
+            console.log(output);    
+        },
+        error: function(result) {
+            $(".search-result").append("<h1>"+"No Result"+"</h1>");
+        }
+        });
+}
+
+$(document).ready(function() {      
+    $("#search_btn").click(function(e) {
+        e.preventDefault();
+        if($("#search").val().length!=0)
+            getdata($("#search").val());
     });
-  });
-});  
-
-
+});
 
 // Wrap every letter in a span
 var textWrapper = document.querySelector('.ml6 .letters');
@@ -287,6 +296,15 @@ anime.timeline({loop: true})
     easing: "easeOutExpo",
     delay: 1000
   });
+</script>
+<script>
+    $('#ttr').on('keyup', function () {
+        if($(this).val().length>0){
+            getdata($(this).val());
+        }else{
+            document.querySelector(".search-result").innerHTML="";
+        }
+    });
 </script>
 </body>
 

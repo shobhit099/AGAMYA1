@@ -214,6 +214,8 @@ def logout():
 @login_required
 def getdata(p):
     if request.method == 'POST':
+        if p =="":
+            return "No results"
         search = "{}%".format(p)
         user = emp.query.filter(emp.name.like(search)).all()
         return passdata(user)

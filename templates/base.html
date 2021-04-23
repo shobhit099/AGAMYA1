@@ -10,7 +10,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <!-- CSS only -->
     <link rel="icon" href="{{ url_for('static', filename='ic2.png') }}" type="image/x-icon">
-    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel='stylesheet' type='text/css' media='screen' href="{{url_for('static',filename='home.css')}}">
@@ -35,33 +36,6 @@
         </ul>
     </nav>
   </header>
-    <!-- <nav class="navbar navbar-expand-lg navbar-light"  style="background-color: #e3f2fd;">
-        <a class="navbar-brand" style="margin-left: 2cm;" href="#">Ready2Hire</a>
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{ url_for('index')}}">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Service</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Contact</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Feedback</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav> -->
 
   {% block content %}
 
