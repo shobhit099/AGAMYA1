@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <input type="text" name="" id="data1">
+        <button id="btn">click</button>
+        <div class="result"></div>
+    </form>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+  $("button").click(function(e) {
+    var t= document.getElementById("data1").value;
+    var yyy="http://localhost:5000/getdata/";
+    yyy=yyy+t;
+    console.log(yyy);
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: yyy,
+      data: {
+        id: $("button").val(),
+        access_token: $("#data").val()
+      },
+      success: function(result) {
+        //alert(result.output);
+        // console.log(result.output);
+        //console.log(t.val);
+        for(let i=0;i<result.output.length;i++){
+            $(".result").append("<h1>"+result.output[i].name+"</h1>");
+        }    
+      },
+      error: function(result) {
+        alert('error');
+      }
+    });
+  });
+});  
+
+</script>
+</html>

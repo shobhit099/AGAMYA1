@@ -1,15 +1,16 @@
-from flask import Flask, render_template, request, redirect, url_for,session
+from flask import Flask, render_template, request, redirect, url_for,session,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 from flask_login import LoginManager, UserMixin, login_user, login_required , logout_user, current_user
 import os
-
+from flask_marshmallow import Marshmallow
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__ , static_folder = 'static')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir,'data.sqlite')
 app.secret_key = 'super secret key'
 app.config['UPLOAD_FOLDER'] = basedir+'\\static\\photo'
 db = SQLAlchemy(app)
+ma = Marshmallow(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -30,6 +31,21 @@ class emp(UserMixin,db.Model):
     exp = db.Column(db.String(10), nullable = False)
     cover = db.Column(db.String(255), default='cover.jpg')
     profile = db.Column(db.String(255), default='user.jpg')
+
+#for returning data with jsonify
+class EmpSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model=emp
+
+def passdata(data):
+    es=EmpSchema(many=True)
+    output=es.dump(data)
+    if len(output) >0 :
+        for x in output:
+            del x["password"]
+            del x["username"]
+    return jsonify({'output': output})
+
 
 class cmp(UserMixin,db.Model):
     __tablename__ = 'cmp'
@@ -176,6 +192,20 @@ def profile_cmp(p):
 def logout():
     logout_user()
     return render_template('index.html')
-    
+
+@app.route('/getdata/<p>',methods=["POST","GET"])
+@login_required
+def getdata(p):
+    if request.method == 'POST':
+        search = "{}%".format(p)
+        user = emp.query.filter(emp.name.like(search)).all()
+        return passdata(user)
+    return 'empty'
+
+# @app.route('/finddata')
+# def finddata():
+#     return render_template('finddata.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
