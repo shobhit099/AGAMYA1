@@ -18,7 +18,7 @@ class emp(UserMixin,db.Model):
     __tablename__ = 'emp'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(255), nullable= False)
+    email = db.Column(db.String(255), nullable= False, unique = True)
     phone = db.Column(db.Integer, nullable=False)
     city = db.Column(db.String(50), nullable=False)
     address = db.Column(db.String(250), nullable= False)
@@ -51,7 +51,7 @@ class cmp(UserMixin,db.Model):
     __tablename__ = 'cmp'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(255), nullable= False)
+    email = db.Column(db.String(255), nullable= False, unique = True)
     telephone = db.Column(db.Integer, nullable=False)
     address = db.Column(db.String(250), nullable= False)
     city = db.Column(db.String(50), nullable=False)
@@ -61,6 +61,14 @@ class cmp(UserMixin,db.Model):
     password = db.Column(db.String(100), nullable=False)
     cover = db.Column(db.String(255), default='cover.jpg')
     profile = db.Column(db.String(255), default='user.jpg')
+
+class Post(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    title = db.Column(db.String(140))
+    quali = db.Column(db.String(140))
+    exp = db.Column(db.String(140))
+    summary = db.Column(db.Text)
+    email = db.Column(db.String(140))
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -185,6 +193,15 @@ def profile_cmp(p):
             db.session.commit()
             profile.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(profile.filename)))
             return render_template('profile_cmp.html',cmp =cmp, image = cmp.profile, cover = cmp.cover )
+        title = request.form['title']
+        quali = request.form['quali']
+        exp = request.form['exp']
+        summary = request.form['summary']
+        email = cmp.email
+        user = Post(title = title, quali = quali, exp = exp, summary = summary, email = email)
+        db.session.add(user)
+        db.session.commit()
+        return 'success'
     return render_template('profile_cmp.html',cmp = cmp, image = cmp.profile , cover = cmp.cover)
 
 @app.route("/logout")
