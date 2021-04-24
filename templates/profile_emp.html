@@ -38,7 +38,14 @@
         margin: 5px;
         background-color: #beb9b9;
     }
+
+    .card-header{
+        font-size: 30px;
+        font-weight: 600;
+        color: #2196f3;
+    }
 </style>
+
 <body>
     <!-- For Slide fixed navbar -->
     <div class="full-container">
@@ -77,11 +84,17 @@
 
                 <!-- The Modal -->
                 <div id="myModal" class="modal">
-
+                    
                     <!-- Modal content -->
                     <div class="modal-content">
                         <span class="close">&times;</span>
-                        <input type="text" name="type" id="ttr" placeholder="Type to search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="ttr" aria-label="Text input with radio button" placeholder="search for worker">
+                        </div>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="ttp" aria-label="Text input with radio button" placeholder="search for vacancy">
+                        </div>
+                        <!-- <input type="text" name="type"  placeholder="Type to search"> -->
                         <div class="search-result">
                             
                         </div>
@@ -259,9 +272,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
 <script>
-function getdata(key){
+function getdataEmp(key){
         var t= key;
-        var yyy="http://localhost:5000/getdata/";
+        var yyy="http://localhost:5000/getdata/emp/";
         yyy=yyy+t;
         $.ajax({
         type: "POST",
@@ -272,7 +285,7 @@ function getdata(key){
         },
         success: function(result) {
             if(result.output.length >0 || result.output!="Not found"){
-                var output=result.output.map((x)=>
+                var output=result.output.sort(function(a, b){return  parseInt(b.exp) - parseInt(a.exp)}).map((x)=>
                 `<div class="about-section-for-search">
                     <div class="dp-search-list">
                         <img src="/static/photo/${x.profile}" style="width: 5cm; height: 4.4cm;" alt="image not found">
@@ -381,6 +394,53 @@ $(document).ready(function() {
     });
 });
 
+
+function getdataPost(key){
+        var t= key;
+        var yyy="http://localhost:5000/getdata/post/";
+        yyy=yyy+t;
+        $.ajax({
+        type: "POST",
+        url: yyy,
+        data: {
+            id: $("search_btn").val(),
+            access_token: $("#search_btn").val()
+        },
+        success: function(result) {
+            if(result.output.length >0 || result.output!="Not found"){
+                var output=result.output.map((x)=>
+                `<div class="card mb-4">
+                    <div class="card-header">
+                        ${x.title }
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <b>Requried Qualification:</b> ${x.quali}<br>
+                            <b>Requried Experience:</b><span> ${x.exp} </span>
+                        </h5>
+                        <h5 class="card-title">
+                            <b>Email:</b> ${x.email}<br>
+                            
+                        </h5>
+                        <p class="card-text">${x.summary}</p>
+                        
+                    </div>
+                </div>`).join("");
+            }else{
+                return;
+            }
+            document.querySelector(".search-result").innerHTML="";
+            $(".search-result").prepend(output);
+            //console.log(output);    
+        },
+        error: function(result) {
+            document.querySelector(".search-result").innerHTML="";
+            $(".search-result").append("<h1>"+"No Result"+"</h1>");
+        }
+        });
+}
+
+
 // Wrap every letter in a span
 var textWrapper = document.querySelector('.ml6 .letters');
 textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
@@ -403,7 +463,15 @@ anime.timeline({loop: true})
 <script>
     $('#ttr').on('keyup', function () {
         if($(this).val().length>0){
-            getdata($(this).val());
+            getdataEmp($(this).val());
+        }else{
+            document.querySelector(".search-result").innerHTML="";
+        }
+    });
+
+    $('#ttp').on('keyup', function () {
+        if($(this).val().length>0){
+            getdataPost($(this).val());
         }else{
             document.querySelector(".search-result").innerHTML="";
         }

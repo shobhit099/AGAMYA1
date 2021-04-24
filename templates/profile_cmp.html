@@ -81,7 +81,14 @@
             <div class="msgs">
                 <!-- search_btn is added  -->
                 <button id="search_btn" type="button" class="btn btn-outline-info">Search</button>
-
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                      <input type="radio" aria-label="Radio button for following text input">
+                      </div>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Text input with radio button">
+                  </div>
 
                 <!-- The Modal -->
                 <div id="myModal" class="modal">
@@ -201,7 +208,7 @@
     </div>
 </div>
 <div id="popup">
-    <form name="contact-form" method="POST" action="#">
+    <form name="contact-form" class="post-submi-form" method="POST" action="#">
         <div class="main">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Job Title</label>
@@ -223,7 +230,7 @@
         </div>
     </div>
     <li class="list-group-item">
-        <button type="submit" class="btn btn-primary" onclick="submitForm()">POST</button>
+        <button type="button" class="btn btn-primary" id="submit-post">POST</button>
         <button type="button" class="btn btn-secondary" onclick="toggle()">Cancel</button>
     </li>
     </form>
@@ -234,12 +241,12 @@
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
     <script>
-        function submitForm() {
-            var frm = document.getElementsByName('contact-form')[0];
-            frm.submit(); // Submit the form
-            frm.reset();  // Reset all form data
-            return false; // Prevent page refresh
-        }
+        $('#submit-post').on('click', function submitForm() {
+            $('.post-submi-form').submit();
+            console.log('heeeyyy');
+            $('.post-submi-form').reset();
+        });
+
         function toggle(){
             var blur = document.getElementById('blur');
             blur.classList.toggle('active')

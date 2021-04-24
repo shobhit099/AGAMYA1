@@ -37,15 +37,6 @@ class EmpSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model=emp
 
-def passdata(data):
-    es=EmpSchema(many=True)
-    output=es.dump(data)
-    if len(output) >0 :
-        for x in output:
-            del x["password"]
-            del x["username"]
-    return jsonify({'output': output})
-
 
 class cmp(UserMixin,db.Model):
     __tablename__ = 'cmp'
@@ -70,6 +61,26 @@ class Post(db.Model):
     summary = db.Column(db.Text)
     email = db.Column(db.String(140))
 
+
+#for returning data with jsonify
+class PostSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model=Post
+
+def passdataForEmp(data):
+    es=EmpSchema(many=True)
+    output=es.dump(data)
+    if len(output) >0 :
+        for x in output:
+            del x["password"]
+            del x["username"]
+    return jsonify({'output': output})
+
+def passdataForPost(data):
+    ps=PostSchema(many=True)
+    output=ps.dump(data)
+    return jsonify({'output': output})
+
 @login_manager.user_loader
 def load_user(user_id):
     if session['table_name'] == 'emp':
@@ -88,6 +99,11 @@ def contact():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/feedback')
+def feedback():
+    return render_template('feedback.html')
+
 
 @app.route('/signup_emp', methods=["POST","GET"])
 def signup_emp():
@@ -188,7 +204,7 @@ def profile_cmp(p):
     else:
         page=1
 
-    pages = posts.paginate(page = page, per_page=30)
+    pages = posts.paginate(page = page, per_page=100)
     if request.method == 'POST':
         posts = Post.query.filter(Post.email.contains(q))
         page =request.args.get('page')
@@ -210,6 +226,7 @@ def profile_cmp(p):
             db.session.commit()
             profile.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(profile.filename)))
             return render_template('profile_cmp.html',cmp =cmp, image = cmp.profile, cover = cmp.cover )
+        print(request.form['title'])
         title = request.form['title']
         quali = request.form['quali']
         exp = request.form['exp']
@@ -218,6 +235,7 @@ def profile_cmp(p):
         user = Post(title = title, quali = quali, exp = exp, summary = summary, email = email)
         db.session.add(user)
         db.session.commit()
+        session['table_name'] = 'cmp'
         return render_template('profile_cmp.html',cmp = cmp, image = cmp.profile , cover = cmp.cover,posts=posts, pages= pages)
     return render_template('profile_cmp.html',cmp = cmp, image = cmp.profile , cover = cmp.cover,posts=posts, pages= pages)
 
@@ -227,17 +245,28 @@ def logout():
     logout_user()
     return render_template('index.html')
 
-@app.route('/getdata/<p>',methods=["POST","GET"])
+@app.route('/getdata/emp/<p>',methods=["POST","GET"])
 @login_required
-def getdata(p):
+def getdataemp(p):
     if request.method == 'POST':
         if p =="":
             return "No results"
         search = "{}%".format(p)
         user = emp.query.filter(emp.skill.like(search)).all()
-        return passdata(user)
+        return passdataForEmp(user)
     return 'empty'
 
+
+@app.route('/getdata/post/<p>',methods=["POST","GET"])
+@login_required
+def getdatapost(p):
+    if request.method == 'POST':
+        if p =="":
+            return "No results"
+        search = "{}%".format(p)
+        post = Post.query.filter(Post.title.like(search)).all()
+        return passdataForPost(post)
+    return 'empty'
 # @app.route('/finddata')
 # def finddata():
 #     return render_template('finddata.html')

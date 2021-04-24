@@ -1,0 +1,166 @@
+<!DOCTYPE html>    
+<html>    
+<head>    
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<link rel="stylesheet" href="fdbk.css">   
+</head>    
+
+
+<body>
+  <style>
+    * {    
+    box-sizing: border-box;  
+    padding: 0;  
+    margin: 0;
+  }  
+  
+  body{
+      height:100vh;
+      width: 100vw;
+      background-image: url(../static/login/login_back.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+  }
+   h2{
+     color:white;
+     /* font-family:comic sans ms; */
+    }   
+
+    input,textarea{
+      outline:none;
+    }
+  input[type=text], select, textarea {    
+    width: 100%;    
+    padding: 12px;    
+    border: 1px solid rgb(70, 68, 68);    
+    /* border-radius: 4px;     */
+    border-radius: 1.5rem;
+    resize: vertical;
+    background-color: rgb(128,128,128,0.3); 
+    color:white;   
+  }    
+  input[type=email], select, textarea {    
+    width: 100%;    
+    padding: 12px;    
+    border: 1px solid  rgb(70, 68, 68)  ;    
+    /* border-radius: 4px;     */
+    resize: vertical;
+    background-color: rgb(128,128,128,0.3);  
+    border-radius: 1.5rem;  
+    
+  }    
+  
+  label {    
+    padding: 12px 12px 12px 0;    
+    display: inline-block;
+    color:white;    
+    font-size: 1.5rem;
+  }    
+      
+  input[type=submit] {    
+    background-color: rgb(14 243 74 / 30%);    
+    color: white;    
+    padding: 12px 20px;    
+    border: none;    
+    border-radius: 4px;    
+    cursor: pointer;    
+    float: right;    
+  }    
+      
+  input[type=submit]:hover {    
+    background-color: #45a049;    
+  }    
+      
+  .container {    
+    border-radius: 5px;    
+    /* background-color: rgba(0,0,0,0.2);     */
+    padding: 20px;   
+    height: 80vh;
+    width: 80vw; 
+  }    
+   ::placeholder{
+        color:white;} 
+  
+  .col-25 {    
+    float: left;    
+    width: 25%;    
+    margin-top: 6px;    
+  }    
+      
+  .col-75 {    
+    float: left;    
+    width: 75%;    
+    margin-top: 6px;    
+  }    
+      
+  /* Clear floats after the columns */    
+  .row:after {    
+    content: "";    
+    display: table;    
+    clear: both;    
+  }    
+  </style>    
+<h2>FEEDBACK FORM</h2>    
+<div class="container">    
+  <form>    
+    <div class="row">    
+      <div class="col-25">    
+        <label for="fname">First Name</label>    
+      </div>    
+      <div class="col-75">    
+        <input type="text" id="fname" name="firstname" placeholder="Your name..">    
+      </div>    
+    </div>    
+    <div class="row">    
+      <div class="col-25">    
+        <label for="lname">Last Name</label>    
+      </div>    
+      <div class="col-75">    
+        <input type="text" id="lname" name="lastname" placeholder="Your last name..">    
+      </div>    
+    </div>    
+    <div class="row">    
+        <div class="col-25">    
+          <label for="email">Mail Id</label>    
+        </div>    
+        <div class="col-75">    
+          <input type="email" id="email" name="mailid" placeholder="Your mail id..">    
+        </div>    
+      </div>    
+    <div class="row">    
+      <div class="col-25">    
+        <label for="country">Country</label>    
+      </div>    
+      <div class="col-75">    
+        <select id="country" name="country">    
+            <option value="none">Select State</option>    
+          <option value="Bengaluru">Bengaluru</option>    
+          <option value="Kolkata">Kolkata</option>    
+          <option value="Hyderabad">Hyderabad</option>    
+          <option value="Surat">Surat</option>    
+          <option value="Ranchi">Ranchi</option>    
+          <option value="Mumbai">Mumbai</option>    
+          <option value="Delhi-NCR">Delhi-NCR</option>    
+        </select>    
+      </div>    
+    </div>    
+    <div class="row">    
+      <div class="col-25">    
+        <label for="feed_back">Feed Back</label>    
+      </div>    
+      <div class="col-75">    
+        <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>    
+      </div>    
+    </div>    
+    <div class="row">    
+      <input type="submit" value="Submit">    
+    </div>    
+  </form>    
+</div>    
+    
+</body>    
+</html>
