@@ -1,0 +1,25 @@
+<style>
+    .card{
+        margin-left: 1cm;
+    }
+    b{
+        margin-right: 2cm;
+    }
+    span{
+        margin-left: 5mm;
+    }
+</style>
+
+<div class="card mb-4">
+    <div class="card-header">
+      {{post.title }}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">
+        <b>Requried Qualification:</b> {{ post.quali }}<br>
+        <b>Requried Experience:</b><span> {{ post.exp }} </span>
+        </h5>
+      <p class="card-text">{{ post.summary }}</p>
+      <a href="#">Read more..</a>
+    </div>
+  </div>

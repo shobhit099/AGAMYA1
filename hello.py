@@ -180,7 +180,24 @@ def profile_emp(p):
 @login_required
 def profile_cmp(p):
     cmp = load_user(p)
+    q = cmp.email
+    posts = Post.query.filter(Post.email.contains(q))
+    page =request.args.get('page')
+    if page and page.isdigit():
+        page = int(page)
+    else:
+        page=1
+
+    pages = posts.paginate(page = page, per_page=30)
     if request.method == 'POST':
+        posts = Post.query.filter(Post.email.contains(q))
+        page =request.args.get('page')
+        if page and page.isdigit():
+            page = int(page)
+        else:
+            page=1
+
+        pages = posts.paginate(page = page, per_page=30)
         if 'cover' in request.files:
             cover = request.files['cover']       
             cmp.cover = cover.filename
@@ -201,8 +218,8 @@ def profile_cmp(p):
         user = Post(title = title, quali = quali, exp = exp, summary = summary, email = email)
         db.session.add(user)
         db.session.commit()
-        return 'success'
-    return render_template('profile_cmp.html',cmp = cmp, image = cmp.profile , cover = cmp.cover)
+        return render_template('profile_cmp.html',cmp = cmp, image = cmp.profile , cover = cmp.cover,posts=posts, pages= pages)
+    return render_template('profile_cmp.html',cmp = cmp, image = cmp.profile , cover = cmp.cover,posts=posts, pages= pages)
 
 @app.route("/logout")
 @login_required

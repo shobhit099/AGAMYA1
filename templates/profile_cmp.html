@@ -189,21 +189,9 @@
                         </ul>
                     </div>
                     <div class="post-section">
-                        <div class="new-post">
-                            <textarea name="" id="" cols="30" rows="10" placeholder="Write something about..."></textarea>
-                            <button type="button" class="btn btn-outline-success ml-2">Write</button>
-                        </div>
-                    </div>
-                    <div class="bio-section">
-                       
-                    </div>
-                    <!-- <div class="empty"></div> -->
-                    <div class="new-posts" style="background-color: antiquewhite;">
-                        <div class="post1"></div>
-                        <div class="post1"></div>
-                        <div class="post1"></div>
-                        <div class="post1"></div>
-                        <div class="post1"></div>
+                        {% for post in pages.items %}
+                            {% include 'card.html' %}
+                        {% endfor %}    
                     </div>
                     <!-- <div class="empty"></div> -->
 
@@ -213,7 +201,7 @@
     </div>
 </div>
 <div id="popup">
-    <form method="POST" action="#">
+    <form name="contact-form" method="POST" action="#">
         <div class="main">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Job Title</label>
@@ -235,7 +223,7 @@
         </div>
     </div>
     <li class="list-group-item">
-        <button type="submit" class="btn btn-primary">POST</button>
+        <button type="submit" class="btn btn-primary" onclick="submitForm()">POST</button>
         <button type="button" class="btn btn-secondary" onclick="toggle()">Cancel</button>
     </li>
     </form>
@@ -246,6 +234,12 @@
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
     <script>
+        function submitForm() {
+            var frm = document.getElementsByName('contact-form')[0];
+            frm.submit(); // Submit the form
+            frm.reset();  // Reset all form data
+            return false; // Prevent page refresh
+        }
         function toggle(){
             var blur = document.getElementById('blur');
             blur.classList.toggle('active')

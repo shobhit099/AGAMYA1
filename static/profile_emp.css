@@ -4,7 +4,6 @@
     box-sizing: border-box;
     border-radius:4px;
     font-family: 'Lora', serif;
-    overflow-x: hidden;
     text-decoration: none;
 }
 .wrapper{
