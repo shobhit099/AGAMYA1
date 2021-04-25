@@ -9,6 +9,89 @@
     .about h1{
         font-family: 'Brush Script MT', cursive;
     }
+    
+.galary{
+    width:80%;
+    margin: auto;
+}
+
+.content-for-galary{
+    width:98%;
+    height:98%;
+    display:grid;
+    grid-template-columns: auto auto auto;
+}
+.box-for-galary{
+    min-width: 200px;
+    border-radius: 10px;
+    height:200px;
+    border:4px solid rgb(117, 113, 113);
+    position:relative;
+    overflow: hidden;
+    margin:1px;
+}
+
+.text-box{
+    padding:5px;
+    z-index: 10;
+    background-color: rgb(110, 112, 116);
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    transform:translateX(-250px);
+    transition-duration: 0.4s;
+    background-color: rgb(255,255,255,0.3);
+}
+.image-box{
+    width:120%;
+    height:100%;
+    position:absolute;
+    top:0;
+    background-color: transparent;
+    transition-duration: 0.8s;
+    transform:translateX(-20px) scale(1.1);
+}
+.msg {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.877);
+}
+
+#img1{
+    background-image:url(../static/galary/doctor.jpg);
+    background-size: cover;
+}
+#img2{
+    background-image:url(../static/galary/metting.jpg);
+    background-size: cover;
+}
+#img3{
+    background-image:url(../static/galary/waiter.jpg);
+    background-size: cover;
+}
+#img4{
+    background-image:url(../static/galary/teacher.jpg);
+    background-size: cover;
+}
+#img5{
+    background-image:url(../static/galary/designer.jpg);
+    background-size: cover;
+}
+#img6{
+    background-image:url(../static/galary/workers.jpg);
+    background-size: cover;
+}
+@media(max-width:600px){
+    .content-for-galary{
+        grid-template-columns: auto auto;
+    }
+}
+@media(max-width:400px){
+    .content-for-galary{
+        grid-template-columns: auto;
+    }
+}
 </style>
 
 <head>
@@ -102,6 +185,74 @@
     </div>
    <h1>We offer Worldwide </br></h1>
     <h2>exciting Career Opportunities</h2>
+    <div class="galary">
+        <div class="content-for-galary">
+            <div class="box-for-galary" id="box">
+                <div class="text-box">
+                    <div class="msg" style="opacity:1">heyeyye</div>
+                </div>
+                <div class="image-box" id="img1">
+                    
+                </div>
+            </div>
+            <div class="box-for-galary">
+                <div class="text-box">
+
+                </div>
+                <div class="image-box" id="img2">
+                    
+                </div>
+            </div>
+            <div class="box-for-galary">
+                <div class="text-box">
+
+                </div>
+                <div class="image-box" id="img3">
+                    
+                </div>
+            </div>
+            <div class="box-for-galary">
+                <div class="text-box">
+
+                </div>
+                <div class="image-box" id="img4">
+                    
+                </div>
+            </div>
+            <div class="box-for-galary">
+                <div class="text-box">
+
+                </div>
+                <div class="image-box" id="img5">
+                    
+                </div>
+            </div>
+            <div class="box-for-galary">
+                <div class="text-box">
+
+                </div>
+                <div class="image-box"  id="img6">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    let t=document.querySelectorAll(".box-for-galary");
+    for(let i=0;i<t.length;i++){
+        t[i].onmouseover = function() {
+        this.children[1].style.transform = "translateX(0px)";
+        this.children[0].style.transform = "translateX(0px)";
+        }
+    }
+    for(let i=0;i<t.length;i++){
+        t[i].onmouseleave = function() {
+        this.children[1].style.transform = "translateX(-20px)";
+        this.children[0].style.transform = "translateX(-250px)";
+        }
+    }
+</script>
+
 <h3>Recently ask Question</h3>
 <div class="pack">
     <div class="question">
