@@ -251,8 +251,11 @@ def getdataemp(p):
     if request.method == 'POST':
         if p =="":
             return "No results"
-        search = "{}%".format(p)
-        user = emp.query.filter(emp.skill.like(search)).all()
+        if len(p) <4:
+            search = "{}%".format(p)
+        else:
+            search = "%{}%".format(p)
+        user = emp.query.filter(emp.skill.like(search)).limit(50).all()
         return passdataForEmp(user)
     return 'empty'
 
@@ -263,8 +266,11 @@ def getdatapost(p):
     if request.method == 'POST':
         if p =="":
             return "No results"
-        search = "{}%".format(p)
-        post = Post.query.filter(Post.title.like(search)).all()
+        if len(p) <4:
+            search = "{}%".format(p)
+        else:
+            search = "%{}%".format(p)
+        post = Post.query.filter(Post.title.like(search)).limit(50).all()
         return passdataForPost(post)
     return 'empty'
 # @app.route('/finddata')
