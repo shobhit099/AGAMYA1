@@ -2,7 +2,10 @@
 install flask and all its dependencies
 then run the file hello.py
 
-Team Name: TechoCrats
+Team Name: TechnoCrats
+Project :A hiring Site called Ready2Hire
+
+Members:----
 
 Asish Chowdhury-205120023
 Amar Sarkar-205120012  (Leader)     
