@@ -2,7 +2,8 @@
 install flask and all its dependencies
 then run the file hello.py
 
-Team Name: TechnoCrats
+Team Name: WEBNOCRATES
+
 Project :A hiring Site called Ready2Hire
 
 Members:----
